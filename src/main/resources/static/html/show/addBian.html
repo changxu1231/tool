@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../css/commonShCss.js"></script>
+    <title>添加爱心便签</title>
+</head>
+<body>
+<div style="margin-top: 55px"></div>
+<form class="layui-form" id="myForm1">
+    <div class="layui-form-item">
+        <label class="layui-form-label">第一行</label>
+        <div class="layui-input-block">
+            <input type="text" name="firstLine" style="width: 200px" required lay-verify="required" placeholder="请输入"
+                   autocomplete="off"
+                   class="layui-input ">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">第二行</label>
+        <div class="layui-input-block">
+            <input type="text" name="secondLine" style="width: 200px" required lay-verify="required" placeholder="请输入"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">第三行</label>
+        <div class="layui-input-block">
+            <input type="text" name="thirdLine" style="width: 200px" required lay-verify="required" placeholder="请输入"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">作者</label>
+        <div class="layui-input-block">
+            <input type="text" name="firstName" style="width: 200px" required lay-verify="required" placeholder="请输入"
+                   autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo" onclick="formAjax()">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+<script src="../../js/commonShJs.js"></script>
+<script>
+    function formAjax() {
+        layui.use('form', function () {
+            var form = layui.form;
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg('确定提交吗？', {
+                    time: 0 //不自动关闭
+                    , btn: ['提交', '取消']
+                    , yes: function (index) {
+                        $.ajax({
+                            type: "post", // 以post方式发起请求
+                            url: "/addBian", // 你的请求链接
+                            data: $("#myForm1").serialize(), // 对id为myForm的表单数据进行序列化并传递到后台
+                            success(data) {
+                                layer.msg('提交成功', {
+                                    icon: 6
+                                });
+                                var int=self.setInterval(function(){  // 这个方法是说在延迟两秒后执行大括号里的方法
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.layer.close(index);//关闭当前页
+                                    parent.location.reload();//刷新页面
+                                },2000) //这里2000代表两秒
+
+
+                            }
+                        })
+                    }
+                });
+
+                return false;
+            });
+        });
+    }
+</script>
+</html>

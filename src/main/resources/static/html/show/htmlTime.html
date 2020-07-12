@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../css/commonShCss.js"></script>
+    <title>html获取时间</title>
+</head>
+<body>
+<div class="divTop">
+        <button class="layui-btn layui-btn-radius layui-btn-normal" onclick="clock()">获取时间</button>
+        <input type="text" id="xtime" readonly class="inp3 font1 suo">
+</div>
+<script>
+    var clock = function () {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var hh = now.getHours();
+        var mm = now.getMinutes();
+        var ss = now.getSeconds();
+        var clock = year + "-";
+        if (month < 10)
+            clock += "0";
+
+        clock += month + "-";
+
+        if (day < 10)
+            clock += "0";
+
+        clock += day + " ";
+
+        if (hh < 10)
+            clock += "0";
+
+        clock += hh + ":";
+        if (mm < 10) clock += '0';
+        clock += mm + ":";
+
+        if (ss < 10) clock += '0';
+        clock += ss;
+
+        document.getElementById("xtime").value = clock;
+    }
+</script>
+</body>
+</html>

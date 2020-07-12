@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="css/commonCss.js"></script>
+    <title>登录</title>
+</head>
+<body onload="height1()">
+<img id="img1" src="images/backstage/l1.jpg" style="width: 600px;margin-left: 100px" alt="">
+<form class="layui-form" action="" id="myForms" style="position: absolute;left: 792px;top:183px">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账户</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入账户" style="width: 250px" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" style="width: 250px" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin-top: 20px">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo" >登录</button>
+            <button type="button" class="layui-btn layui-btn-primary" onclick="logon()" style="margin-left: 116px">注册</button>
+        </div>
+    </div>
+</form>
+<script src="js/commonJs.js"></script>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.load();
+            setTimeout(function(){
+                layer.closeAll('loading');
+            }, 2000);
+            setTimeout(function(){
+                layer.msg(JSON.stringify(data.field));
+            }, 2000);
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

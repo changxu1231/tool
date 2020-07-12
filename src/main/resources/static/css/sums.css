@@ -1,0 +1,82 @@
+.div1 {
+    width: 200px;
+    height: 250px;
+    border: 1px solid black;
+    float: left;
+    margin-left: 48px;
+    margin-top: 20px
+}
+.div2 {
+    width: 108px;
+    height: 153px;
+    border: 1px solid green;
+    margin-left: 45px;
+    margin-top: 24px;
+    font-size: 16px;
+    word-wrap:break-word
+}
+.btn{
+    width:50px;
+    height: 30px;
+    margin-left: 12px;
+    margin-top:22px
+}
+/*缩进2字符*/
+.suo{
+    text-indent: 2em
+}
+.suo1{
+    text-indent: 1.5em
+}
+.div3{
+    width: 244px;
+    height: 260px;
+    border: 1px solid burlywood;
+    float: left;
+    margin-left: 155px;
+    margin-top: 75px;
+    background: url("../images/tool/s2.jpg")
+}
+.hr1{
+    background-color: red
+}
+.div4{
+    margin-top: 37px;
+    margin-left: 103px
+}
+/*18号字体*/
+.font1{
+    font-size: 18px
+}
+.inp{
+    border: none
+}
+.inp1{
+    width: 100px;
+    margin-left: 136px
+}
+.inp2{
+    width: 45px;
+    margin-left: 105px
+}
+/*小手样式*/
+.hand{
+    cursor:pointer
+}
+.divTop{
+    margin-top: 24px;
+}
+.div5{
+    margin-left: 97px;
+}
+.inp3{
+    height: 29px;
+    width: 242px;
+    vertical-align: middle;
+}
+.hr2{
+    margin-top: 3%;
+}
+.inp4{
+    width: 200px;
+}

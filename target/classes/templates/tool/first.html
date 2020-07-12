@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="css/commonCss.js"></script>
+    <title>引导页</title>
+</head>
+<body style="overflow:hidden">
+<!--轮播图-->
+
+<div class="layui-carousel" id="test1">
+    <div carousel-item>
+        <div><img src="images/tool/lun1.jpg" alt="图片1"></div>
+        <div><img src="images/tool/lun2.jpg" alt="图片2"></div>
+        <div><img src="images/tool/lun3.jpg" alt="图片3"></div>
+        <div><img src="images/tool/lun4.jpg" alt="图片4"></div>
+        <div><img src="images/tool/lun5.jpg" alt="图片5"></div>
+    </div>
+</div>
+<!--添加便签-->
+<div style="margin-top: 13px"></div>
+<div style="float: right;width:37px; height:40px;display: none;" id="di"><input type="button" title="添加爱心便签"
+                                                                                class="hand" onclick="addBian()"
+                                                                                style="width:40px; height:40px;border: 0; background:url('images/tool/s0.jpg') no-repeat;position:fixed;right:-3px;">
+</div>
+<div style="width:14px; height:38px;float: right;"><img
+        src="images/tool/b2.jpg" title="点击关闭" id="images1" alt="" onmouseover="show()" onclick="hide()"></div>
+<!--删除按钮-->
+<div id="btna" style="width:80px; height:38px;position: fixed;top:35%;right: 40%;display: none">
+    <button class="layui-btn layui-btn-danger" onclick="deleteAll()">删除</button>
+</div>
+<!--布局-->
+<div style="width:1300px;height: 400px;">
+    <div class="div3" th:each="list,listStat:${findAll}">
+        <form action="" th:id="'myForm' + (${listStat.index}+1)">
+            <div class="div4 font1"><span th:utext="${list.titleTime}"></span> &nbsp;&nbsp;
+                <input type="checkbox" name="id" th:id="'h'+(${listStat.index}+1)" hidden style="width: 30px"
+                       th:value="${list.id}"/><label th:for="'h'+(${listStat.index}+1)"><img
+                        src="images/tool/e1.png" style="height: 28px" class="hand" title="删除"
+                        th:id="'i'+(${listStat.index}+1)"
+                        th:onclick="imgs([[${listStat.index}+1]])" onmouseout="testButton()" alt=""></label>
+            </div>
+            <hr>
+            <input type="text" hidden name="id" th:value="${list.id}">
+            &nbsp;&nbsp;<input type="text" title="双击修改" readonly ondblclick="this.readOnly=false"
+                               onchange="this.readOnly=true"
+                               onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                               th:id="'first'+(${listStat.index}+1)" name="firstLine" class="inp suo1 font1 hand"
+                               th:onblur="firstAjax([[${listStat.index}+1]])"
+                               th:value="${list.firstLine}">
+            <input type="text" hidden th:id="'f'+(${listStat.index}+1)" th:value="${list.firstLine}">
+            <input type="text" hidden th:id="'s'+(${listStat.index}+1)" th:value="${list.secondLine}">
+            <input type="text" hidden th:id="'t'+(${listStat.index}+1)" th:value="${list.thirdLine}">
+            <hr>
+            &nbsp;&nbsp;<input type="text" title="双击修改" readonly ondblclick="this.readOnly=false"
+                               onchange="this.readOnly=true"
+                               onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                               th:id="'second'+(${listStat.index}+1)" name="secondLine" class="inp suo1 font1 hand"
+                               th:onblur="firstAjax([[${listStat.index}+1]])"
+                               th:value="${list.secondLine}">
+            <hr>
+            &nbsp;&nbsp;<input type="text" title="双击修改" readonly ondblclick="this.readOnly=false"
+                               onchange="this.readOnly=true"
+                               onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                               th:id="'third'+(${listStat.index}+1)" name="thirdLine" class="inp suo1 font1 hand"
+                               th:onblur="firstAjax([[${listStat.index}+1]])"
+                               th:value="${list.thirdLine}">
+            <hr>
+            &nbsp;&nbsp;<input type="text" title="姓名不可修改" readonly name="firstName" class="inp suo1 font1 inp1 hand"
+                               th:value="${list.firstName}" placeholder="你的名字">
+        </form>
+    </div>
+</div>
+<!--分页-->
+<table style="position: relative;bottom:25px;left: 37%">
+    <tr>
+        <td><a href="/?num=0" class="layui-btn layui-btn-primary">首页</a></td>
+        <td th:if="${pageInfo.getPrePage()} != '0' "><a href="javascript:;" class="layui-btn layui-btn-primary"
+                                                        th:href="${'/?num='+pageInfo.getPrePage()}">上一页</a></td>
+        <td th:if="${pageInfo.getPrePage()} eq '0' "><a href="javascript:; "
+                                                        class="layui-btn layui-btn-disabled">上一页</a></td>
+        <td class="layui-btn layui-btn-warm" title="跳到首页" onclick="tiao()"><span
+                th:text="${pageInfo.getPageNum()}"></span>/ <span
+                th:text="${pageInfo.getPages()}"> </span></td>
+        <td th:if="${pageInfo.getNextPage()} != '0' "><a href="javascript:;" class="layui-btn layui-btn-primary"
+                                                         th:href="${'/?num='+pageInfo.getNextPage()}">下一页</a>
+        </td>
+        <td th:if="${pageInfo.getNextPage()} eq '0' "><a href="javascript:; "
+                                                         class="layui-btn layui-btn-disabled">下一页</a></td>
+        <td><a href="javascript:;" class="layui-btn layui-btn-primary" th:href="${'/?num='+pageInfo.getPages()}">末页</a>
+        </td>
+    </tr>
+</table>
+<!--<hr class="hr1 hr2">-->
+<!--跳转爬虫页-->
+</body>
+<script src="js/commonJs.js"></script>
+<script>
+    layui.use('carousel', function () {
+        var carousel = layui.carousel;
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            , width: '100%' //设置容器宽度
+            , height: '200px'
+            , arrow: 'always' //始终显示箭头
+            //,anim: 'updown' //切换动画方式
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连续时间</title>
+</head>
+<body>
+<span id="time" style="font-size: 18px"></span>
+<script>
+    function showtime()
+    {
+        var today;
+        var strDate ;
+        today=new Date();
+        var n_day = today.getDay();
+        switch (n_day)
+        {
+            case 0:{
+                strDate = "星期日"
+            }break;
+            case 1:{
+                strDate = "星期一"
+            }break;
+            case 2:{
+                strDate ="星期二"
+            }break;
+            case 3:{
+                strDate = "星期三"
+            }break;
+            case 4:{
+                strDate = "星期四"
+            }break;
+            case 5:{
+                strDate = "星期五"
+            }break;
+            case 6:{
+                strDate = "星期六"
+            }break;
+            case 7:{
+                strDate = "星期日"
+            }break;
+        }
+
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var day = today.getDate();
+        var hh = today.getHours();
+        var mm = today.getMinutes();
+        var ss = today.getSeconds();
+
+        var clock = year + "-";
+
+        if(month < 10)
+            clock += "0";
+
+        clock += month + "-";
+
+        if(day < 10)
+            clock += "0";
+
+        clock += day + " ";
+
+        if(hh < 10)
+            clock += "0";
+
+        clock += hh + ":";
+        if (mm < 10) clock += '0';
+        clock += mm + ":";
+
+        if (ss < 10) clock += '0';
+        clock += ss;
+
+        document.getElementById('time').innerHTML =  clock +"  "+strDate; //显示时间
+        setTimeout("showtime();", 1000); //设定函数自动执行时间为 1000 ms(1 s)
+    }
+</script>
+<script> showtime();</script>
+
+</body>
+</html>

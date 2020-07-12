@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="css/commonCss.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<br>
+<form class="layui-form" action="" id="myForms">
+    <div class="layui-form-item">
+        <label class="layui-form-label">账户</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入账户" onkeyup="this.value=this.value.replace(/\s+/g,'')" style="width: 250px" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-inline">
+            <input type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" onkeyup='value=value.replace(/[^A-Za-z0-9\-]+/g,"")' style="width: 250px" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+<!--    <div class="layui-form-item">-->
+<!--        <label class="layui-form-label">确认密码</label>-->
+<!--        <div class="layui-input-inline">-->
+<!--            <input type="passwords" required lay-verify="required" placeholder="请确认密码" onkeyup='value=value.replace(/[^A-Za-z0-9\-]+/g,"")' style="width: 250px" autocomplete="off" class="layui-input">-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="phone" id="phone" required lay-verify="required" onblur="checkPhone()" placeholder="请输入手机号" style="width: 250px" autocomplete="off" class="layui-input" value="18395745575">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="margin-top: 20px">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo" >确认</button>
+            <button type="reset" class="layui-btn layui-btn-primary"  style="margin-left: 116px">重置</button>
+        </div>
+    </div>
+</form>
+<script src="js/commonJs.js"></script>
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg('确定要提交吗？', {
+                time: 0 //不自动关闭
+                ,btn: ['确定吖', '再想想']
+                ,yes: function(index){
+                    layer.close(index);
+                    layer.load();
+                    setTimeout(function(){
+                        layer.closeAll('loading');
+                    }, 2000);
+                    $.ajax({
+                        type: "post", // 以post方式发起请求
+                        url: "insertUser", // 你的请求链接
+                        data:$("#myForms").serialize(), // 对id为myForm的表单数据进行序列化并传递到后台
+                        success(data) {
+                            if(data=="SUCCESS") {
+                                setTimeout(function () {
+                                    layer.msg('注册成功', {icon: 6});
+                                }, 2000);
+                            }
+                            else{
+                                setTimeout(function () {
+                                    layer.msg('注册失败', {icon: 5});
+                                }, 2000);
+                            }
+                        }
+                    })
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

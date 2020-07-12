@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="css/commonCss.js"></script>
+    <title>首页</title>
+</head>
+<body>
+<!--页面主体内容-->
+<div style="width:1300px;height: 500px;">
+    <div class="div1" th:each="list,listStat:${findAll}">
+        <div class="div2">
+            <lable>功能描述:</lable>
+            <br>
+            <span th:if="${list.describe} ne null">
+                <p class="suo" th:utext="${list.describe}"></p>
+            </span>
+            <span th:if="${list.describe} eq null">
+                <p class="suo">暂无</p>
+            </span>
+            <input hidden th:id="'m' + (${listStat.index}+1)" type="text" th:value="${list.methodName}">
+            <span th:if="${list.viewCode} ne null ">
+                <textarea style="display: none" th:id="'x' + (${listStat.index}+1)"> <span
+                        th:utext="${list.viewCode}"></span> </textarea>
+            </span>
+            <span th:if="${list.viewCode} eq null">
+                <textarea style="display: none" th:id="'x' + (${listStat.index}+1)">暂无代码</textarea>
+            </span>
+        </div>
+        <button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-normal btn" id="btn2"
+                th:onclick="viewCode([[${listStat.index}+1]],[[${list.code}]]);">查看
+        </button>
+        <button title="点此复制" class="layui-btn layui-btn-sm layui-btn-radius  layui-btn-normal btn" id="btn1"
+                th:onclick="'javascript:copyNow(\''+(${listStat.index}+1)+'\');'">复制
+        </button>
+        <button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger btn" id="btn3"
+                th:onclick="'javascript:f1(\''+(${listStat.index}+1)+'\');'">关闭
+        </button>
+    </div>
+</div>
+<!--分页-->
+<table style="position: relative;bottom:-30px;left: 37%">
+    <tr>
+        <td><a href="/homePage?num=0" class="layui-btn layui-btn-primary">首页</a></td>
+        <td th:if="${pageInfo.getPrePage()} != '0' "><a href="javascript:;" class="layui-btn layui-btn-primary"
+                                                        th:href="${'/homePage?num='+pageInfo.getPrePage()}">上一页</a></td>
+        <td th:if="${pageInfo.getPrePage()} eq '0' "><a href="javascript:; " class="layui-btn layui-btn-disabled">上一页</a></td>
+        <td class="layui-btn layui-btn-warm" title="跳到初始页" onclick="tiao1()"><span th:text="${pageInfo.getPageNum()}"></span>/ <span th:text="${pageInfo.getPages()}"> </span></td>
+        <td th:if="${pageInfo.getNextPage()} != '0' "><a href="javascript:;" class="layui-btn layui-btn-primary"
+                                                         th:href="${'/homePage?num='+pageInfo.getNextPage()}">下一页</a>
+        </td>
+        <td th:if="${pageInfo.getNextPage()} eq '0' "><a href="javascript:; " class="layui-btn layui-btn-disabled">下一页</a></td>
+        <td><a href="javascript:;" class="layui-btn layui-btn-primary" th:href="${'/homePage?num='+pageInfo.getPages()}">末页</a></td>
+    </tr>
+</table>
+</body>
+<script src="js/commonJs.js"></script>
+</html>

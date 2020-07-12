@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../css/commonShCss.js"></script>
+    <title>计算时间差</title>
+</head>
+<body>
+<div class="layui-inline divTop">
+    <label class="layui-form-label">开始时间</label>
+    <div class="layui-input-inline">
+        <input type="text" title="点击修改" class="layui-input hand" style="cursor:hand" id="startTime" readonly value="2020-05-05 05:05:05">
+    </div>
+</div>
+<div class="layui-inline">
+    <label class="layui-form-label">结束时间</label>
+    <div class="layui-input-inline">
+        <input type="text" title="点击修改" class="layui-input hand"    id="endTime" readonly value="2020-05-06 05:05:05">
+    </div>
+</div>
+<div class="layui-inline">
+    <label class="layui-form-label">时间差：</label>
+    <div class="layui-input-inline">
+        <input type="text" class="layui-input" id="downtime" readonly placeholder="小时,保留两位">
+    </div>
+</div>
+<br><div class="divTop div5">
+<button class="layui-btn layui-btn-normal"  onclick="sky()">计算时间差</button>
+<button class="layui-btn layui-btn-primary" onclick="reset1()">重置时间差</button>
+</div>
+</body>
+<script>
+    var sky = function(){
+        var startTime = document.getElementById("startTime").value;
+        var endTime = document.getElementById("endTime").value;
+        var num = Date.parse(endTime) - Date.parse(startTime);
+        if(num >= 0){
+            var hour = num / 1000 / 60 / 60;
+            hour = hour.toFixed(2);
+            document.getElementById("downtime").value = hour+"h";
+        }
+        if(num < 0){
+            alert("结束时间应不早于开始时间，请重新填写");
+            document.getElementById("endTime").value = "";
+        } }
+</script>
+<script src="../../js/commonShJs.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期时间选择器
+        laydate.render({
+            elem: '#startTime'
+            ,type: 'datetime'
+        });
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //日期时间选择器
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+    });
+</script>
+</html>
